@@ -24,7 +24,7 @@ public final class PhoneNumber {
 			throw new IllegalArgumentException(name + ": " + arg);
 	}
 
-	@Override
+
 	public boolean equals(Object o) {
 		if (o == this)
 			return true;
@@ -38,13 +38,14 @@ public final class PhoneNumber {
 	// Broken - no hashCode method!
 
 	// A decent hashCode method - Page 48
-	// @Override public int hashCode() {
-	// int result = 17;
-	// result = 31 * result + areaCode;
-	// result = 31 * result + prefix;
-	// result = 31 * result + lineNumber;
-	// return result;
-	// }
+//    @Override
+  public int hashCode() {
+        int result = 17;
+        result = 31 * result + areaCode;
+        result = 31 * result + prefix;
+        result = 31 * result + lineNumber;
+        return result;
+    }
 
 	// Lazily initialized, cached hashCode - Page 49
 	// private volatile int hashCode; // (See Item 71)
@@ -63,7 +64,24 @@ public final class PhoneNumber {
 
 	public static void main(String[] args) {
 		Map<PhoneNumber, String> m = new HashMap<PhoneNumber, String>();
-		m.put(new PhoneNumber(707, 867, 5309), "Jenny");
-		System.out.println(m.get(new PhoneNumber(707, 867, 5309)));
+        PhoneNumber key = new PhoneNumber(707, 867, 5309);
+
+        PhoneNumber key1 = new PhoneNumber(707, 867, 5309);
+
+        System.out.println(key.hashCode());
+        System.out.println(key1.hashCode());
+
+        System.out.println(key == key1);
+        System.out.println(key.equals(key1));
+
+        m.put(key, "Jenny");
+		System.out.println(m.get(key1));
+
+        System.out.println(key.toString());
+
+
+//        Map<Integer, String> m = new HashMap<Integer, String>();
+//        m.put(111, "Jenny");
+//        System.out.println(m.get(111));
 	}
 }
